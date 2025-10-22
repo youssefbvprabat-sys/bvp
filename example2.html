@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo centré</title>
+  <style>
+    /* --- Style général --- */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000; /* fond noir */
+      height: 100vh;
+      display: flex;
+      align-items: center;   /* centre verticalement */
+      justify-content: center; /* centre horizontalement */
+    }
+
+    /* --- Logo --- */
+    .logo {
+      width: 300px;   /* largeur exacte */
+      height: 53px;   /* hauteur exacte */
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;  /* garde les proportions sans déformation */
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="logo bvp png site web.avif" alt="Logo">
+  </div>
+</body>
+</html>

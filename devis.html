@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtenez un devis</title>
+    <style>
+        body{
+            text-transform: uppercase;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        #devis {
+    padding: 5rem 0; /* Espacement généreux pour un look luxueux */
+    background-color: transparent; /* Fond transparent pour laisser voir la vidéo */
+    color: #fff; /* Texte blanc pour contraste */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Police élégante comme Gucci */
+}
+
+.devis-container {
+    max-width: 1200px; /* Largeur maximale pour centrer */
+    margin: 0 auto; /* Centrage horizontal */
+    padding: 0 2rem; /* Padding latéral augmenté pour respirer */
+}
+
+.devis-content {
+    max-width: 70%; /* Légèrement plus large pour un équilibre Gucci */
+    margin: 0 auto; /* Centrage */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05); /* Fond semi-transparent subtil pour profondeur, laissant voir la vidéo */
+    padding: 3rem; /* Padding interne pour un cadre luxueux */
+    border-radius: 0; /* Pas de radius pour minimalisme */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Ombre subtile pour effet de luxe */
+    backdrop-filter: blur(5px); /* Ajout d'un flou arrière pour un effet de verre transparent */
+}
+
+.devis-content h2 {
+    margin-bottom: 1.5rem; /* Espacement ajusté */
+    font-size: 2.5rem; /* Taille plus grande pour impact */
+    color: #fff;
+    text-transform: uppercase; /* Style Gucci */
+    letter-spacing: 2px; /* Espacement des lettres pour élégance */
+    font-weight: 200; /* Léger pour un look raffiné */
+    line-height: 1.2;
+}
+
+.devis-content p {
+    margin-bottom: 4rem; /* Plus d'espace */
+    font-size: 1.2rem;
+    color: #ccc; /* Gris clair pour subtilité */
+    line-height: 1.6;
+    font-weight: 300; /* Léger */
+}
+
+/* Formulaire - Style épuré et luxueux */
+#devisForm {
+    text-align: left; /* Alignement gauche pour les champs */
+}
+
+.form-row {
+    display: flex;
+    gap: 2rem; /* Gap plus large pour respirer */
+    margin-bottom: 2rem; /* Espacement augmenté */
+}
+
+.form-group {
+    flex: 1; /* Prend l'espace disponible pour uniformité */
+    margin-bottom: 2rem; /* Espacement généreux */
+}
+
+.form-group.half {
+    flex: 1; /* Utilise flex: 1 pour que les deux colonnes se partagent l'espace également, tenant compte du gap */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 400; /* Semi-bold pour lisibilité */
+    color: #fff;
+    text-transform: uppercase; /* Style Gucci */
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%; /* Pleine largeur pour uniformité et rangement */
+    padding: 1rem; /* Padding augmenté pour confort */
+    border: 1px solid #555; /* Bordure grise subtile */
+    border-radius: 0; /* Minimalisme */
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+    color: #8a8787; /* Texte blanc */
+    transition: all 0.3s ease; /* Transition douce */
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa; /* Placeholder gris */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #fff; /* Accent blanc au focus */
+    background-color: rgba(255, 255, 255, 0.2); /* Légère luminosité */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Glow subtil */
+}
+
+.form-group textarea {
+    resize: vertical; /* Redimensionnable */
+    min-height: 120px; /* Hauteur minimale */
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: #aaa; /* Gris pour discrétion */
+    margin-top: 0.5rem;
+    font-style: italic; /* Italique pour élégance */
+}
+
+.required {
+    color: #ff6b6b; /* Rouge subtil pour requis */
+}
+
+button[type="submit"] {
+    width: 100%; /* Pleine largeur */
+    padding: 1.25rem; /* Padding généreux */
+    background-color: #fff; /* Bouton blanc pour contraste */
+    color: #000; /* Texte noir */
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: uppercase; /* Style Gucci */
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transition fluide */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+}
+
+button[type="submit"]:hover {
+    background-color: #f0f0f0; /* Hover léger */
+    transform: translateY(-2px); /* Effet de levée subtil */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Ombre renforcée */
+}
+
+/* Responsive : Pleine largeur sur mobile, avec ajustements */
+@media (max-width: 768px) {
+    .devis-content {
+        max-width: 100%; /* Pleine largeur */
+        padding: 2rem; /* Padding réduit */
+    }
+    
+    .devis-content h2 {
+        font-size: 2rem; /* Taille réduite */
+    }
+    
+    .form-row {
+        flex-direction: column; /* Colonnes empilées */
+        gap: 0;
+    }
+    
+    .form-group.half {
+        flex: 1; /* Pleine largeur */
+    }
+    
+    .form-row {
+        margin-bottom: 1rem; /* Espacement ajusté */
+    }
+} 
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+                .menu {
+            
+            position: absolute;
+            top: 60px; /* Ajustez la position du menu */
+            left: 20px;
+            z-index: 1;
+            display: none; /* Masquer le menu par défaut */
+            background-color: transparent; /* Fond semi-transparent */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu ul {
+            color: white;
+            list-style-type: none;
+        }
+        
+        .menu li {
+            margin: 10px 0;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+        .menu a {
+            color: white; /* Couleur blanche pour les liens */
+            text-decoration: none; /* Supprimer le soulignement */
+        }
+        .menu a:hover {
+            text-decoration: underline; /* Soulignement au survol pour l'interactivité */
+        }
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            background: transparent;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+        <div class="video-background">
+        <video autoplay muted loop>
+            <source src="paris.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+    </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+        <ul>
+                <li><a href="exemple3.html">Accueil</a></li>
+                <li><a href="devis.html">Nos clients</a></li>
+                <!-- <li><a href="devis.html">Demander un Devis</a></li> -->
+                <li><a href="devis.html">Contact</a></li>
+        </ul>
+    </nav>
+    <script>
+            function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+        <section id="devis">
+    <div class="devis-container">
+        <div class="devis-content">
+            <h2>Obtenez un devis pour votre production </h2>
+            <p>Remplissez ce formulaire et recevez une estimation détaillée dans un délai de 24h.</p>
+            
+            <!-- Formulaire avec Formspree (remplacez VOTRE_ENDPOINT par votre vrai endpoint) -->
+            <form id="devisForm" action="https://formspree.io/f/xanpgola" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="nomPrenom">Nom & prénom <span class="required">*</span></label>
+                        <input type="text" id="nomPrenom" name="nomPrenom" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="entreprise">Entreprise / Organisation</label>
+                        <input type="text" id="entreprise" name="entreprise">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="typeVideo">Type de prestation</label>
+                    <select id="typeVideo" name="typeVideo">
+                        <option value="">Sélectionnez un type</option>
+                        <option value="television">Télévision</option>
+                        <option value="film-entreprise">Film d’entreprise</option>
+                        <option value="publicite">Publicité</option>
+                        <option value="evenement">Événement</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Budget estimé</label>
+                    <input type="text" id="budget" name="budget" placeholder="Entrez votre budget">
+                </div>
+                <div class="form-group">
+                    <label for="delai">Délai souhaité</label>
+                    <input type="text" id="delai" name="delai" placeholder="Ex. : 2 semaines, fin du mois">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description du projet (scénario, objectifs, durée souhaitée)</label>
+                    <textarea id="description" name="description" rows="5" placeholder="Décrivez votre projet en détail..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="piecesJointes">Pièces jointes (storyboard, cahier des charges)</label>
+                    <input type="file" id="piecesJointes" name="piecesJointes[]" multiple accept=".pdf,.jpg,.png,.doc,.docx">
+                    <div class="form-text">Vous pouvez joindre plusieurs fichiers (max 10 Mo recommandés).</div>
+                </div>
+                <button type="submit">Envoyer ma demande</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

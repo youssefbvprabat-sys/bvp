@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar with Logo Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Overlay sombre pour lisibilité */
+            url('background.png') fixed;
+            background-size: cover; /* Couvre toute la page sans déformation */
+            background-position: center; /* Centre l'image */
+            background-repeat: no-repeat; /* Pas de répétition */
+            min-height: 100vh; /* Au moins la hauteur de l'écran */
+            font-family: Arial, sans-serif;
+            height: 2000px; /* Pour simuler le scroll */
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh; /* Pleine hauteur pour la section accueil */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+             /* Fond pour la section accueil */
+        }
+
+        .logo {
+            /* Taille initiale du logo dans la hero */
+            width: 516px;
+            height: 730px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease; /* Animation douce */
+            z-index: 10;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Pour maintenir les proportions si nécessaire, mais ici on force les dimensions */
+        }
+
+        .logo.in-navbar {
+            position: fixed;
+            top: 20px; /* Centré verticalement dans la navbar (ajusté pour padding) */
+            left: 54%;
+            transform: translateX(-50%);
+            /* Taille du logo dans la navbar */
+            width: 250px;
+            height: 44px;
+            z-index: 1010; /* Au-dessus de la navbar */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            height: 50px;
+            width: 100%;
+            background-color: transparent; /* Transparent au départ */
+            transition: background-color 0.3s ease; /* Transition douce */
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar.white {
+            background-color: rgb(0, 0, 0); /* Noir après scroll */
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: rgb(255, 255, 255);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .menu li {
+            margin: 10px 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+        }
+
+        .menu.open {
+            display: block;
+        }
+
+        /* Contenu après la hero */
+        .content {
+            padding-top: 100px; /* Espace pour la navbar fixe */
+            text-align: center;
+        }
+        .image-grid {
+            
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur desktop */
+    gap: 20px; /* Espacement subtil entre les éléments */
+    max-width: 1200px; /* Largeur maximale pour centrer */
+    margin: 0 auto; /* Centrage horizontal */
+    padding: 20px;
+}
+
+.image-item {
+    text-align: center; /* Centre les titres */
+}
+
+.image-item img {
+    width: 100%; /* Images responsives */
+    height: auto;
+    max-width: 300px; /* Taille maximale */
+    transition: transform 0.3s ease; /* Transition douce pour le hover */
+}
+
+.image-item img:hover {
+    transform: scale(1.05); /* Léger zoom de 5% au survol */
+}
+
+.image-item h3 {
+    margin-top: 10px;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Police élégante comme Gucci */
+    font-size: 1.2em;
+    color: #333;
+    text-transform: uppercase; /* Style Gucci-like */
+    letter-spacing: 1px;
+    font-weight: 300; /* Léger pour un look luxueux */
+}
+
+/* Responsive : 2 colonnes sur tablettes et mobiles (au lieu de 1) */
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur petit écran */
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Section Accueil avec logo centré -->
+    <div class="hero">
+        <div class="logo" id="logo"><img src="logo bvp png site web.avif" alt="Logo"></div>
+    </div>
+
+    <!-- Navbar fixe -->
+    <nav class="navbar" id="navbar">
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- Le logo se déplacera ici via JS -->
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#clients">Nos clients</a></li>
+                <li><a href="#devis">Demander un Devis</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="image-grid">
+    <div class="image-item">
+        <img src="bvp\festival.avif" alt="Produit 1">
+        <h3>FESTIVAL</h3>
+    </div>
+    <div class="image-item">
+        <img src="bvp\cinema.avif" alt="Produit 2">
+        <h3>CINEMA</h3>
+    </div>
+    <div class="image-item">
+        <img src="bvp\conferrences.avif" alt="Produit 3">
+        <h3>CONFERRENCES</h3>
+    </div>
+    <div class="image-item">
+        <img src="bvp\sport.avif" alt="Produit 4">
+        <h3>COUVERTURE SPORTIVE</h3>
+    </div>
+    <div class="image-item">
+        <img src="bvp\television.avif" alt="Produit 5">
+        <h3>TELEVISION</h3>
+    </div>
+    <div class="image-item">
+        <img src="bvp\cinema.avif" alt="Produit 6">
+        <h3>CORPORATE</h3>
+    </div>
+</div>
+
+
+    <script>
+        // Toggle menu
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        hamburger.addEventListener('click', function() {
+            menu.classList.toggle('open');
+        });
+
+        // Logo animation on scroll
+        const logo = document.getElementById('logo');
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                logo.classList.add('in-navbar');
+                navbar.classList.add('white');
+            } else {
+                logo.classList.remove('in-navbar');
+                navbar.classList.remove('white');
+            }
+        });
+    </script>
+</body>
+</html>
+  

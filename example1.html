@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar with Logo Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 2000px; /* Pour simuler le scroll */
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh; /* Pleine hauteur pour la section accueil */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0; /* Fond pour la section accueil */
+        }
+
+        .logo {
+            font-size: 48px; /* Taille du logo initial */
+            font-weight: bold;
+            color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease; /* Animation douce */
+            z-index: 10;
+        }
+
+        .logo.in-navbar {
+            position: fixed;
+            top: 10px; /* Ajusté pour centrer dans la navbar */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px; /* Plus petit dans la navbar */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: transparent; /* Transparent au départ */
+            transition: background-color 0.3s ease; /* Transition douce */
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar.white {
+            background-color: rgb(0, 0, 0); /* Blanc après scroll */
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: rgb(255, 255, 255);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px 0;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .menu li {
+            margin: 10px 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+        }
+
+        .menu.open {
+            display: block;
+        }
+
+        /* Contenu après la hero */
+        .content {
+            padding-top: 100px; /* Espace pour la navbar fixe */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Section Accueil avec logo centré -->
+    <div class="hero">
+        <div class="logo" id="logo">Votre Logo</div> <!-- Remplacez par <img src="votre-logo.png" alt="Logo"> si c'est une image -->
+    </div>
+
+    <!-- Navbar fixe -->
+    <nav class="navbar" id="navbar">
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <img src="LOGO BVP .png" alt="" height="44 px" width="250px">
+        <!-- Le logo se déplacera ici via JS -->
+        <div class="menu" id="menu">
+            <ul>
+                
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#clients">Nos clients</a></li>
+                <li><a href="#devis">Demander un Devis</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Contenu de la page</h1>
+        <p>Faites défiler pour voir le logo "sauter" vers la navbar. Cliquez sur le hamburger pour ouvrir le menu.</p>
+        <!-- Ajoutez plus de contenu ici pour tester le scroll -->
+    </div>
+
+    <script>
+        // Toggle menu
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        hamburger.addEventListener('click', function() {
+            menu.classList.toggle('open');
+        });
+
+        // Logo animation on scroll
+        const logo = document.getElementById('logo');
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                logo.classList.add('in-navbar');
+                navbar.classList.add('white');
+            } else {
+                logo.classList.remove('in-navbar');
+                navbar.classList.remove('white');
+            }
+        });
+    </script>
+</body>
+</html>
