@@ -3,247 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar with Logo Animation</title>
+    <title>Page d'Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Overlay sombre pour lisibilité */
-            url('background.png') fixed;
-            background-size: cover; /* Couvre toute la page sans déformation */
-            background-position: center; /* Centre l'image */
-            background-repeat: no-repeat; /* Pas de répétition */
-            min-height: 100vh; /* Au moins la hauteur de l'écran */
-            font-family: Arial, sans-serif;
-            height: 2000px; /* Pour simuler le scroll */
+            box-sizing: border-box;
         }
 
-        .hero {
-            position: relative;
-            height: 100vh; /* Pleine hauteur pour la section accueil */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-             /* Fond pour la section accueil */
-        }
-
-        .logo {
-            /* Taille initiale du logo dans la hero */
-            width: 516px;
-            height: 730px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease; /* Animation douce */
-            z-index: 10;
-        }
-
-        .logo img {
-            width: 100%;
+        body, html {
             height: 100%;
-            object-fit: contain; /* Pour maintenir les proportions si nécessaire, mais ici on force les dimensions */
+            font-family: Arial, sans-serif;
         }
 
-        .logo.in-navbar {
-            position: fixed;
-            top: 20px; /* Centré verticalement dans la navbar (ajusté pour padding) */
-            left: 54%;
-            transform: translateX(-50%);
-            /* Taille du logo dans la navbar */
-            width: 250px;
-            height: 44px;
-            z-index: 1010; /* Au-dessus de la navbar */
-        }
-
-        .navbar {
+        .video-background {
             position: fixed;
             top: 0;
-            height: 50px;
-            width: 100%;
-            background-color: transparent; /* Transparent au départ */
-            transition: background-color 0.3s ease; /* Transition douce */
-            z-index: 1000;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar.white {
-            background-color: rgb(0, 0, 0); /* Noir après scroll */
-        }
-
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: rgb(255, 255, 255);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        .menu {
-            display: none;
-            position: absolute;
-            top: 100%;
             left: 0;
             width: 100%;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            padding: 10px 0;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
         }
-
-        .menu ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content {
+            position: relative;
             text-align: center;
+            z-index: 1;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Centrer horizontalement */
+            height: 100%;
         }
-
+        .logo img {
+            max-width: 400px;     
+        }
+        .play-button {
+            width: 60px;
+            height: 60px;
+            margin-top: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+        .play-icon {
+            font-size: 40px;
+            color: white;
+        }
+        .menu {
+            
+            position: absolute;
+            top: 60px; /* Ajustez la position du menu */
+            left: 20px;
+            z-index: 1;
+            display: none; /* Masquer le menu par défaut */
+            background-color: transparent; /* Fond semi-transparent */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu ul {
+            color: white;
+            list-style-type: none;
+        }
+        
         .menu li {
             margin: 10px 0;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
         }
-
         .menu a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-            display: block;
-            padding: 10px;
+            color: white; /* Couleur blanche pour les liens */
+            text-decoration: none; /* Supprimer le soulignement */
+        }
+        .menu a:hover {
+            text-decoration: underline; /* Soulignement au survol pour l'interactivité */
+        }
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            background: transparent;
+            border: none;
         }
 
-        .menu.open {
-            display: block;
+        /* Style pour le lecteur audio */
+        .audio-player {
+            display: none; /* Masquer le lecteur audio par défaut */
         }
 
-        /* Contenu après la hero */
-        .content {
-            padding-top: 100px; /* Espace pour la navbar fixe */
-            text-align: center;
+        /* Style pour les drapeaux */
+        .flags {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1;
+            display: flex;
+            gap: 10px; /* Espacement entre les drapeaux */
         }
-        .image-grid {
-            
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes sur desktop */
-    gap: 20px; /* Espacement subtil entre les éléments */
-    max-width: 1200px; /* Largeur maximale pour centrer */
-    margin: 0 auto; /* Centrage horizontal */
-    padding: 20px;
-}
-
-.image-item {
-    text-align: center; /* Centre les titres */
-}
-
-.image-item img {
-    width: 100%; /* Images responsives */
-    height: auto;
-    max-width: 300px; /* Taille maximale */
-    transition: transform 0.3s ease; /* Transition douce pour le hover */
-}
-
-.image-item img:hover {
-    transform: scale(1.05); /* Léger zoom de 5% au survol */
-}
-
-.image-item h3 {
-    margin-top: 10px;
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* Police élégante comme Gucci */
-    font-size: 1.2em;
-    color: #333;
-    text-transform: uppercase; /* Style Gucci-like */
-    letter-spacing: 1px;
-    font-weight: 300; /* Léger pour un look luxueux */
-}
-
-/* Responsive : 2 colonnes sur tablettes et mobiles (au lieu de 1) */
-@media (max-width: 768px) {
-    .image-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur petit écran */
-    }
-}
-
+        .flag {
+            font-size: 30px; /* Taille des drapeaux */
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .flag:hover {
+            transform: scale(1.1); /* Effet au survol */
+        }
     </style>
 </head>
 <body>
-    <!-- Section Accueil avec logo centré -->
-    <div class="hero">
-        <div class="logo" id="logo"><img src="logo bvp png site web.avif" alt="Logo"></div>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="paris.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
     </div>
-
-    <!-- Navbar fixe -->
-    <nav class="navbar" id="navbar">
-        <div class="hamburger" id="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
+    <div class="content">
+        <div class="logo">
+            <img src="LOGO BVP .png" alt="Logo">
         </div>
-        <!-- Le logo se déplacera ici via JS -->
-        <div class="menu" id="menu">
-            <ul>
+        <button class="play-button" id="playButton">
+            <i class="fas fa-play play-icon"></i>
+        </button>
+        <audio class="audio-player" id="audioPlayer">
+            <source src="Make It Loud.mp3" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+        <ul>
                 <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#clients">Nos clients</a></li>
-                <li><a href="#devis">Demander un Devis</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+                <li><a href="devis.html">Nos clients</a></li>
+                <li><a href="devis.html">Demander un Devis</a></li>
+                <li><a href="devis.html">Contact</a></li>
+        </ul>
     </nav>
-
-    <div class="image-grid">
-    <div class="image-item">
-        <img src="bvp\festival.avif" alt="Produit 1">
-        <h3>FESTIVAL</h3>
+    <!-- Drapeaux en haut à droite -->
+    <div class="flags">
+        <a href="morocco.html"><img src="maroc.png" alt="" with="20px" height="15px"></a> <!-- Drapeau marocain comme lien -->
+        <a href="france.html"><img src="france.png" alt=""with="20px" height="15px"></a> <!-- Drapeau français comme lien -->
     </div>
-    <div class="image-item">
-        <img src="bvp\cinema.avif" alt="Produit 2">
-        <h3>CINEMA</h3>
-    </div>
-    <div class="image-item">
-        <img src="bvp\conferrences.avif" alt="Produit 3">
-        <h3>CONFERRENCES</h3>
-    </div>
-    <div class="image-item">
-        <img src="bvp\sport.avif" alt="Produit 4">
-        <h3>COUVERTURE SPORTIVE</h3>
-    </div>
-    <div class="image-item">
-        <img src="bvp\television.avif" alt="Produit 5">
-        <h3>TELEVISION</h3>
-    </div>
-    <div class="image-item">
-        <img src="bvp\cinema.avif" alt="Produit 6">
-        <h3>CORPORATE</h3>
-    </div>
-</div>
-
-
     <script>
-        // Toggle menu
-        const hamburger = document.getElementById('hamburger');
-        const menu = document.getElementById('menu');
-        hamburger.addEventListener('click', function() {
-            menu.classList.toggle('open');
-        });
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playButton = document.getElementById('playButton');
 
-        // Logo animation on scroll
-        const logo = document.getElementById('logo');
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                logo.classList.add('in-navbar');
-                navbar.classList.add('white');
+        playButton.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playButton.innerHTML = '<i class="fas fa-pause play-icon"></i>'; // Changer l'icône en pause
             } else {
-                logo.classList.remove('in-navbar');
-                navbar.classList.remove('white');
+                audioPlayer.pause();
+                playButton.innerHTML = '<i class="fas fa-play play-icon"></i>'; // Changer l'icône en play
             }
         });
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
     </script>
 </body>
 </html>
-  
