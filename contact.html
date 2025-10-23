@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obtenez un devis</title>
+    <title>Contactez-nous</title>
     <style>
         body{
             
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
-        #devis {
+        #contact {
     padding: 5rem 0; /* Espacement généreux pour un look luxueux */
     background-color: transparent; /* Fond transparent pour laisser voir la vidéo */
     color: #fff; /* Texte blanc pour contraste */
     font-family: 'Helvetica Neue', Arial, sans-serif; /* Police élégante comme Gucci */
 }
 
-.devis-container {
+.contact-container {
     max-width: 1200px; /* Largeur maximale pour centrer */
     margin: 0 auto; /* Centrage horizontal */
     padding: 0 2rem; /* Padding latéral augmenté pour respirer */
 }
 
-.devis-content {
+.contact-content {
     max-width: 70%; /* Légèrement plus large pour un équilibre Gucci */
     margin: 0 auto; /* Centrage */
     text-align: center;
@@ -33,7 +33,7 @@
     backdrop-filter: blur(5px); /* Ajout d'un flou arrière pour un effet de verre transparent */
 }
 
-.devis-content h2 {
+.contact-content h2 {
     margin-bottom: 1.5rem; /* Espacement ajusté */
     font-size: 2.5rem; /* Taille plus grande pour impact */
     color: #fff;
@@ -43,7 +43,7 @@
     line-height: 1.2;
 }
 
-.devis-content p {
+.contact-content p {
     margin-bottom: 4rem; /* Plus d'espace */
     font-size: 1.2rem;
     color: #ccc; /* Gris clair pour subtilité */
@@ -52,7 +52,7 @@
 }
 
 /* Formulaire - Style épuré et luxueux */
-#devisForm {
+#contactForm {
     text-align: left; /* Alignement gauche pour les champs */
 }
 
@@ -148,12 +148,12 @@ button[type="submit"]:hover {
 
 /* Responsive : Pleine largeur sur mobile, avec ajustements */
 @media (max-width: 768px) {
-    .devis-content {
+    .contact-content {
         max-width: 100%; /* Pleine largeur */
         padding: 2rem; /* Padding réduit */
     }
     
-    .devis-content h2 {
+    .contact-content h2 {
         font-size: 2rem; /* Taille réduite */
     }
     
@@ -184,11 +184,11 @@ button[type="submit"]:hover {
             height: 100%;
             object-fit: cover;
         }
-                .menu {
+        .menu {
             
             position: absolute;
             top: 60px; /* Ajustez la position du menu */
-            left: 10px;
+            
             z-index: 1;
             display: none; /* Masquer le menu par défaut */
             background-color: transparent; /* Fond semi-transparent */
@@ -236,9 +236,9 @@ button[type="submit"]:hover {
     <nav class="menu" id="menu">
         <ul>
                 <li><a href="index.html">Accueil</a></li>
-                <li><a href="devis.html">Nos clients</a></li>
-                <!-- <li><a href="devis.html">Demander un Devis</a></li> -->
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="client.html">Nos clients</a></li>
+                <a href="devis.html">Demander <br>un Devis</a>
+                <!-- <li><a href="contact.html">Contact</a></li> -->
         </ul>
     </nav>
     <script>
@@ -247,14 +247,14 @@ button[type="submit"]:hover {
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
     </script>
-        <section id="devis">
-    <div class="devis-container">
-        <div class="devis-content">
-            <h2>Obtenez un devis pour votre production </h2>
-            <p>Remplissez ce formulaire et recevez une estimation détaillée dans un délai de 24h.</p>
+        <section id="contact">
+    <div class="contact-container">
+        <div class="contact-content">
+            <h2>Contactez-nous</h2>
+            <p>Envoyez-nous un message et nous vous répondrons dans les plus brefs délais.</p>
             
             <!-- Formulaire avec Formspree (remplacez VOTRE_ENDPOINT par votre vrai endpoint) -->
-            <form id="devisForm" action="https://formspree.io/f/xanpgola" method="POST" enctype="multipart/form-data">
+            <form id="contactForm" action="https://formspree.io/f/xanpgola" method="POST">
                 <div class="form-row">
                     <div class="form-group half">
                         <label for="nomPrenom">Nom & prénom <span class="required">*</span></label>
@@ -276,34 +276,14 @@ button[type="submit"]:hover {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="typeVideo">Type de prestation</label>
-                    <select id="typeVideo" name="typeVideo">
-                        <option value="">Sélectionnez un type</option>
-                        <option value="television">Télévision</option>
-                        <option value="film-entreprise">Film d’entreprise</option>
-                        <option value="publicite">Publicité</option>
-                        <option value="evenement">Événement</option>
-                        <option value="autre">Autre</option>
-                    </select>
+                    <label for="sujet">Sujet <span class="required">*</span></label>
+                    <input type="text" id="sujet" name="sujet" required placeholder="Objet de votre message">
                 </div>
                 <div class="form-group">
-                    <label for="budget">Budget estimé</label>
-                    <input type="text" id="budget" name="budget" placeholder="Entrez votre budget">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Votre message..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="delai">Délai souhaité</label>
-                    <input type="text" id="delai" name="delai" placeholder="Ex. : 2 semaines, fin du mois">
-                </div>
-                <div class="form-group">
-                    <label for="description">Description du projet (scénario, objectifs, durée souhaitée)</label>
-                    <textarea id="description" name="description" rows="5" placeholder="Décrivez votre projet en détail..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="piecesJointes">Pièces jointes (storyboard, cahier des charges)</label>
-                    <input type="file" id="piecesJointes" name="piecesJointes[]" multiple accept=".pdf,.jpg,.png,.doc,.docx">
-                    <div class="form-text">Vous pouvez joindre plusieurs fichiers (max 10 Mo recommandés).</div>
-                </div>
-                <button type="submit">Envoyer ma demande</button>
+                <button type="submit">Envoyer le message</button>
             </form>
         </div>
     </div>

@@ -69,7 +69,7 @@
             z-index: 1;
             display: none; /* Masquer le menu par défaut */
             background-color: transparent; /* Fond semi-transparent */
-            padding: 10px;
+            padding: 0px;
             border-radius: 5px;
         }
         .menu ul {
@@ -128,27 +128,21 @@
 <body>
     <div class="video-background">
         <video autoplay muted loop>
-            <source src="paris.mp4" type="video/mp4">
+            <source src="rr.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
     </div>
     <div class="content">
         <div class="logo">
-            <img src="LOGO BVP .png" alt="Logo">
+            
         </div>
-        <button class="play-button" id="playButton">
-            <i class="fas fa-play play-icon"></i>
-        </button>
-        <audio class="audio-player" id="audioPlayer">
-            <source src="VOIX OFF SITE WEB BVP.mp3" type="audio/mpeg">
-            Votre navigateur ne supporte pas l'élément audio.
-        </audio>
+
+
     </div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
     <nav class="menu" id="menu">
         <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="client.html">Nos clients</a></li>
+                <li><a href="index.html">Accueil</a></li>
                 <li><a href="devis.html">Demander un Devis</a></li>
                 <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -159,18 +153,7 @@
         <a href="#"><img src="france.png" alt=""with="20px" height="15px"></a> <!-- Drapeau français comme lien -->
     </div>
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playButton = document.getElementById('playButton');
-
-        playButton.addEventListener('click', () => {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                playButton.innerHTML = '<i class="fas fa-pause play-icon"></i>'; // Changer l'icône en pause
-            } else {
-                audioPlayer.pause();
-                playButton.innerHTML = '<i class="fas fa-play play-icon"></i>'; // Changer l'icône en play
-            }
-        });
+   
 
         function toggleMenu() {
             const menu = document.getElementById('menu');
