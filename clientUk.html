@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistic 10-Slide Border Slider (Video-Inspired)</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000; /* Dark background to enhance video visibility */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        /* Background Video */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Behind everything */
+        }
+        .slider-container {
+            width: 60%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+             /* Semi-transparent border for visibility */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            background: transparent; /* Transparent background */
+            backdrop-filter: blur(10px); /* Blurs the background video behind */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+             /* Optional for modern look */
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0); /* Semi-transparent white for content readability */
+            position: relative;
+            overflow: hidden;
+        }
+        /* Animated Border Effect (inspired by video) */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* border: 3px solid transparent;
+            border-top-color: #000;
+            border-left-color: #000; */
+            animation: borderDraw 2s ease-in-out infinite alternate;
+        }
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* border: 3px solid transparent;
+            border-bottom-color: #000;
+            border-right-color: #000; */
+            animation: borderDraw 2s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes borderDraw {
+            0% { border-color: transparent; }
+            50% { border-color: #000; }
+            100% { border-color: #333; }
+        }
+        .slide:hover::before, .slide:hover::after {
+            animation-duration: 1s;
+        }
+        .slide-content {
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+            z-index: 1;
+        }
+        .slide img {
+            width: 150px;
+            height: 150px;
+            /* object-fit: cover; */
+            /* border: 2px solid #000; */
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .slide img:hover {
+            transform: scale(1.1);
+        }
+        .description {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            
+        }
+        .link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ffffff, #333);
+            color: #000000;
+            text-decoration: none;
+            /* border: 2px solid #000; */
+            transition: background 0.3s ease;
+        }
+        .link:hover {
+            background: linear-gradient(45deg, #333, #ffffff);
+        }
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        .dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .dot.active { background: #000; }
+                .menu {
+            
+            position: absolute;
+            top: 60px; /* Adjust menu position */
+            left: 20px; /* Added left to position at top left */
+            z-index: 1;
+            display: none; /* Hide menu by default */
+            background-color: transparent; /* Semi-transparent background */
+            padding: 0px;
+            border-radius: 5px;
+        }
+        .menu ul {
+            color: white;
+            list-style-type: none;
+        }
+        
+        .menu li {
+            margin: 10px 0;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+        .menu a {
+            color: rgb(51, 51, 51); /* White color for links */
+            text-decoration: none; /* Remove underline */
+        }
+        .menu a:hover {
+            text-decoration: underline; /* Underline on hover for interactivity */
+        }
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            cursor: pointer;
+            color: rgb(55, 55, 55);
+            font-size: 24px;
+            background: transparent;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video id="background-video" autoplay muted loop>
+        <source src="https://res.cloudinary.com/dombaudh7/video/upload/v1761397873/BVP_SITE_HOME_PAGE_1_1_1_oqkgcd.mp4" type="video/mp4">
+        <!-- Replace with your own video URL. This is a placeholder. -->
+        Your browser does not support the video tag.
+    </video>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+        <ul>
+                <li><a href="morocco.html">Home</a></li>
+                <!-- <li><a href="client.html">Our Clients</a></li> -->
+                <li><a href="devisUk.html">Get a Quote</a></li>
+                <li><a href="contactUk.html">Contact</a></li>
+        </ul>
+    </nav>
+        <script>
+            function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <!-- Slide 1 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\Orange_logo.svg.png" alt="Tech Innovators">
+                    <div class="description"><h2>Orange</h2></div>
+                    <a href="https://www.orange.com/en?utm_source=chatgpt.com" class="link">Visit Orange</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\pngwing.com.png" alt="Creative Studios" width="" height=" ">
+                    <div class="description"><h2>Paris Saint‑Germain</h2></div>
+                    <a href="https://www.psg.fr/en?utm_source=chatgpt.com" class="link">Visit Paris Saint‑Germain</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\canal-1-logo-png-transparent.png" alt="Eco Ventures" width="100" height="100">
+                    <div class="description"><h2>Canal+</h2></div>
+                    <a href="https://www.canalplus.com/?utm_source=chatgpt.com" class="link">Visit Canal+</a>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\tf.png" alt="Artisan Collective" width="100" height="100">
+                    <div class="description"><h2>TF1</h2></div>
+                    <a href="https://www.tf1.fr?utm_source=chatgpt.com" class="link">Visit TF1</a>
+                </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\oim-iom-logo-png_seeklogo-102524.png" alt="Sonic Waves">
+                    <div class="description"><h2>International Organization for Migration (IOM)</h2></div>
+                    <a href="https://www.iom.int/?utm_source=chatgpt.com" class="link">Visit IOM </a>
+                </div>
+            </div>
+            <!-- Slide 6 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\attijariwafa-bank-logo-png_seeklogo-176188.png" alt="Cosmic Explorers">
+                    <div class="description"><h2>Attijariwafa Bank</h2></div>
+                    <a href="https://www.attijariwafabank.com/fr?utm_source=chatgpt.com" class="link">Visit Attijariwafa Bank</a>
+                </div>
+            </div>
+            <!-- Slide 7 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\neutrogena-1-logo-png-transparent.png" alt="Culinary Labs">
+                    <div class="description"><h2>Neutrogena</h2></div>
+                    <a href="https://www.neutrogena.com/?utm_source=chatgpt.com" class="link">Visit Neutrogena</a>
+                </div>
+            </div>
+            <!-- Slide 8 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\téléchargement.png" alt="Style Architects">
+                    <div class="description"><h2>Glovo</h2></div>
+                    <a href="https://glovoapp.com/?utm_source=chatgpt.com" class="link">Visit Glovo</a>
+                </div>
+            </div>
+            <!-- Slide 9 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\2m.jpg" alt="Wellness Forge" width="100" height="100">
+                    <div class="description"><h2>2M</h2></div>
+                    <a href="https://www.2m.ma/" class="link">Visit 2M</a>
+                </div>
+            </div>
+            <!-- Slide 10 -->
+            <div class="slide">
+                <div class="slide-content">
+                    <img src="logo\medi.png" alt="Knowledge Grid">
+                    <div class="description"><h2>Medi1</h2></div>
+                    <a href="https://www.medi1tv.com/?utm_source=chatgpt.com" class="link">Visit Medi1</a>
+                </div>
+            </div>
+        </div>
+        <button class="nav-buttons prev" onclick="prevSlide()">&#10094;</button>
+        <button class="nav-buttons next" onclick="nextSlide()">&#10095;</button>
+        <div class="dots" id="dots"></div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const slides = slider.children;
+        const dotsContainer = document.getElementById('dots');
+        let currentIndex = 0;
+
+        // Create dots
+        for (let i = 0; i < slides.length; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        const dots = dotsContainer.children;
+        dots[0].classList.add('active');
+
+        function updateDots() {
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            dots[currentIndex].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateDots();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            goToSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            goToSlide(currentIndex);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>

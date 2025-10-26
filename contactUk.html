@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body{
+            
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        #contact {
+    padding: 5rem 0; /* Generous spacing for a luxurious look */
+    background-color: transparent; /* Transparent background to show the video */
+    color: #fff; /* White text for contrast */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Elegant font like Gucci */
+}
+
+.contact-container {
+    max-width: 1200px; /* Maximum width to center */
+    margin: 0 auto; /* Horizontal centering */
+    padding: 0 2rem; /* Increased lateral padding for breathing room */
+}
+
+.contact-content {
+    max-width: 70%; /* Slightly wider for Gucci balance */
+    margin: 0 auto; /* Centering */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05); /* Subtle semi-transparent background for depth, showing the video */
+    padding: 3rem; /* Internal padding for a luxurious frame */
+    border-radius: 0; /* No radius for minimalism */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for luxury effect */
+    backdrop-filter: blur(5px); /* Adding a background blur for a transparent glass effect */
+}
+
+.contact-content h2 {
+    margin-bottom: 1.5rem; /* Adjusted spacing */
+    font-size: 2.5rem; /* Larger size for impact */
+    color: #fff;
+    text-transform: uppercase; /* Gucci style */
+    letter-spacing: 2px; /* Letter spacing for elegance */
+    font-weight: 200; /* Light for a refined look */
+    line-height: 1.2;
+}
+
+.contact-content p {
+    margin-bottom: 4rem; /* More space */
+    font-size: 1.2rem;
+    color: #ccc; /* Light gray for subtlety */
+    line-height: 1.6;
+    font-weight: 300; /* Light */
+}
+
+/* Form - Clean and luxurious style */
+#contactForm {
+    text-align: left; /* Left alignment for fields */
+}
+
+.form-row {
+    display: flex;
+    gap: 2rem; /* Wider gap for breathing room */
+    margin-bottom: 2rem; /* Increased spacing */
+}
+
+.form-group {
+    flex: 1; /* Takes available space for uniformity */
+    margin-bottom: 2rem; /* Generous spacing */
+}
+
+.form-group.half {
+    flex: 1; /* Uses flex: 1 so both columns share space equally, accounting for the gap */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 400; /* Semi-bold for readability */
+    color: #fff;
+    text-transform: uppercase; /* Gucci style */
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%; /* Full width for uniformity and tidiness */
+    padding: 1rem; /* Increased padding for comfort */
+    border: 1px solid #555; /* Subtle gray border */
+    border-radius: 0; /* Minimalism */
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    color: #303030; /* White text */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder,
+.form-group textarea::placeholder {
+    color: #545454; /* Gray placeholder */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #fff; /* White accent on focus */
+    background-color: rgba(255, 255, 255, 0.5); /* Slight brightness */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0); /* Subtle glow */
+}
+
+.form-group textarea {
+    resize: vertical; /* Resizable */
+    min-height: 120px; /* Minimum height */
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: #383838; /* Gray for discretion */
+    margin-top: 0.5rem;
+    font-style: italic; /* Italic for elegance */
+}
+
+.required {
+    color: #ff6b6b; /* Subtle red for required */
+}
+
+button[type="submit"] {
+    width: 100%; /* Full width */
+    padding: 1.25rem; /* Generous padding */
+    background-color: #fff; /* White button for contrast */
+    color: #000; /* Black text */
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: uppercase; /* Gucci style */
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+button[type="submit"]:hover {
+    background-color: #f0f0f0; /* Light hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+/* Responsive: Full width on mobile, with adjustments */
+@media (max-width: 768px) {
+    .contact-content {
+        max-width: 100%; /* Full width */
+        padding: 2rem; /* Reduced padding */
+    }
+    
+    .contact-content h2 {
+        font-size: 2rem; /* Reduced size */
+    }
+    
+    .form-row {
+        flex-direction: column; /* Stacked columns */
+        gap: 0;
+    }
+    
+    .form-group.half {
+        flex: 1; /* Full width */
+    }
+    
+    .form-row {
+        margin-bottom: 1rem; /* Adjusted spacing */
+    }
+} 
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .menu {
+            
+            position: absolute;
+            top: 60px; /* Adjust menu position */
+            
+            z-index: 1;
+            display: none; /* Hide menu by default */
+            background-color: transparent; /* Semi-transparent background */
+            padding: 0px;
+            border-radius: 5px;
+        }
+        .menu ul {
+            color: white;
+            list-style-type: none;
+        }
+        
+        .menu li {
+            margin: 10px 0;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+        .menu a {
+            color: rgb(96, 96, 96); /* White color for links */
+            text-decoration: none; /* Remove underline */
+        }
+        .menu a:hover {
+            text-decoration: underline; /* Underline on hover for interactivity */
+        }
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            cursor: pointer;
+            color: rgb(92, 92, 92);
+            font-size: 24px;
+            background: transparent;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+        <div class="video-background">
+            
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dombaudh7/video/upload/v1761397873/BVP_SITE_HOME_PAGE_1_1_1_oqkgcd.mp4" type="video/mp4">
+            Your browser does not support the video.
+        </video>
+    </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav class="menu" id="menu">
+        <ul>
+                <li><a href="morocco.html">Home</a></li>
+                <li><a href="clientUk.html">Our Clients</a></li>
+                <li><a href="devisUk.html">Get a Quote</a></li>
+                <!-- <li><a href="contact.html">Contact</a></li> -->
+        </ul>
+    </nav>
+    <script>
+            function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+        <section id="contact">
+    <div class="contact-container">
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <p>Send us a message and we will get back to you as soon as possible.</p>
+            
+            <!-- Form with Formspree (replace YOUR_ENDPOINT with your real endpoint) -->
+            <form id="contactForm" action="https://formspree.io/f/xvgwellg" method="POST">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="nomPrenom">First & Last Name <span class="required">*</span></label>
+                        <input type="text" id="nomPrenom" name="nomPrenom" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="entreprise">Company / Organization</label>
+                        <input type="text" id="entreprise" name="entreprise">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="telephone">Phone</label>
+                        <input type="tel" id="telephone" name="telephone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sujet">Subject <span class="required">*</span></label>
+                    <input type="text" id="sujet" name="sujet" required placeholder="Subject of your message">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Your message..."></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
