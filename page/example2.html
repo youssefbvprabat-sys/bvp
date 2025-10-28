@@ -1,37 +1,413 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logo centré</title>
-  <style>
-    /* --- Style général --- */
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #000; /* fond noir */
-      height: 100vh;
-      display: flex;
-      align-items: center;   /* centre verticalement */
-      justify-content: center; /* centre horizontalement */
-    }
-
-    /* --- Logo --- */
-    .logo {
-      width: 300px;   /* largeur exacte */
-      height: 53px;   /* hauteur exacte */
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;  /* garde les proportions sans déformation */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: Poppins;
+            margin: 0;
+            background-color: #010101;
+            color: #eee;
+        }
+        svg{
+            width: 25px;
+        }
+        /* css slider */
+        .slider{
+            height: 100vh;
+            position: relative;
+        }
+        .slider .list .item{
+            position: absolute;
+            inset: 0 0 0 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: .5s;
+            background-size: cover;
+            background-position: center;
+        }
+        .slider .list .item::after{
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-image: linear-gradient(
+                to top, #000 40%, transparent
+            );
+        }
+        .slider .list .item .content{
+            position: absolute;
+            left: 10%;
+            top: 5%; /* Changé de 20% à 5% pour déplacer le contenu plus haut et éviter le chevauchement avec la thumbnail */
+            width: 500px;
+            max-width: 80%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slider .list .item .content .logo{
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .slider .list .item .content h2{
+            font-size: 50px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+        .slider .list .item .content p{
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .slider .list .item.active{
+            opacity: 1;
+            z-index: 10;
+        }
+        @keyframes showContent {
+            to{
+                transform: translateY(0);
+                filter: blur(0);
+                opacity: 1;
+            }
+        }
+        .slider .list .item.active .logo,
+        .slider .list .item.active h2,
+        .slider .list .item.active p{
+            transform: translateY(30px);
+            filter: blur(20px);
+            opacity: 0;
+            animation: showContent .5s .7s ease-in-out 1 forwards;
+        }
+        .slider .list .item.active h2{
+            animation-delay: 1s;
+        }
+        .slider .list .item.active p{
+            animation-delay: 1.3s;
+        }
+        .arrows{
+            position: absolute;
+            top: 30%;
+            right: 50px;
+            z-index: 100;
+        }
+        .arrows button{
+            background-color: #eee5;
+            border: none;
+            font-family: monospace;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            font-size: x-large;
+            color: #eee;
+            transition: .5s;
+        }
+        .arrows button:hover{
+            background-color: #eee;
+            color: black;
+        }
+        .thumbnail{
+            position: absolute;
+            bottom: 50px;
+            z-index: 11;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            height: 250px;
+            padding: 0 50px;
+            box-sizing: border-box;
+            overflow: auto;
+            justify-content: center;
+        }
+        .thumbnail::-webkit-scrollbar{
+            width: 0;
+        }
+        .thumbnail .item{
+            width: 150px;
+            height: 220px;
+            filter: brightness(.5);
+            transition: .5s;
+            flex-shrink: 0;
+            /* Supprimé background-size, background-position, border-radius pour supprimer le background image */
+            /* Ajouté un fond semi-transparent pour rendre les thumbnails visibles sans image de fond */
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .thumbnail .item .logo-thumb{
+            width: 80px; /* Agrandi pour mieux voir sans background */
+            height: 80px;
+            object-fit: contain;
+            /* Supprimé background-color, border-radius, padding pour simplifier */
+        }
+        .thumbnail .item.active{
+            filter: brightness(1.5);
+            background-color: rgba(255, 255, 255, 0.3); /* Plus visible pour l'actif */
+        }
+        @media screen and (max-width: 678px) {
+            .thumbnail{
+                justify-content: start;
+            }
+            .slider .list .item .content .logo{
+                width: 100px;
+                height: 100px;
+            }
+            .slider .list .item .content h2{
+                font-size: 30px;
+            }
+            .slider .list .item .content p{
+                font-size: 16px;
+            }
+            .arrows{
+                top: 10%;
+            }
+            .slider .list .item .content{
+                top: 5%; /* Gardé cohérent avec le changement principal */
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="logo">
-    <img src="logo bvp png site web.avif" alt="Logo">
-  </div>
-</body>
-</html>
+    <!-- slider -->
+    <div class="slider">
+        <!-- list Items -->
+        <div class="list">
+            <div class="item active" style="background-image: url('bvp/cinema.avif');">
+                <div class="content">
+                    <img src="logo/2m.jpg" alt="Client Logo 1" class="logo">
+                    <h2>Client 1</h2>
+                    <p>Description du projet pour Client 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project2.jpg');">
+                <div class="content">
+                    <img src="image/logo2.png" alt="Client Logo 2" class="logo">
+                    <h2>Client 2</h2>
+                    <p>Description du projet pour Client 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project3.jpg');">
+                <div class="content">
+                    <img src="image/logo3.png" alt="Client Logo 3" class="logo">
+                    <h2>Client 3</h2>
+                    <p>Description du projet pour Client 3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project4.jpg');">
+                <div class="content">
+                    <img src="image/logo4.png" alt="Client Logo 4" class="logo">
+                    <h2>Client 4</h2>
+                    <p>Description du projet pour Client 4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="image/logo5.png" alt="Client Logo 5" class="logo">
+                    <h2>Client 5</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project6.jpg');">
+                <div class="content">
+                    <img src="logo/logo6.png" alt="Client Logo 6" class="logo">
+                    <h2>Client 6</h2>
+                    <p>Description du projet pour Client 6.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project7.jpg');">
+                <div class="content">
+                    <img src="logo/logo7.png" alt="Client Logo 7" class="logo">
+                    <h2>Client 7</h2>
+                    <p>Description du projet pour Client 7.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project8.jpg');">
+                <div class="content">
+                    <img src="logo/logo8.png" alt="Client Logo 8" class="logo">
+                    <h2>Client 8</h2>
+                    <p>Description du projet pour Client 8.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project9.jpg');">
+                <div class="content">
+                    <img src="logo/logo9.png" alt="Client Logo 9" class="logo">
+                    <h2>Client 9</h2>
+                    <p>Description du projet pour Client 9.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project10.jpg');">
+                <div class="content">
+                    <img src="logo/logo10.png" alt="Client Logo 10" class="logo">
+                    <h2>Client 10</h2>
+                    <p>Description du projet pour Client 10.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project11.jpg');">
+                <div class="content">
+                    <img src="logo/logo11.png" alt="Client Logo 11" class="logo">
+                    <h2>Client 11</h2>
+                    <p>Description du projet pour Client 11.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project12.jpg');">
+                <div class="content">
+                    <img src="logo/logo12.png" alt="Client Logo 12" class="logo">
+                    <h2>Client 12</h2>
+                    <p>Description du projet pour Client 12.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project13.jpg');">
+                <div class="content">
+                    <img src="logo/logo13.png" alt="Client Logo 13" class="logo">
+                    <h2>Client 13</h2>
+                    <p>Description du projet pour Client 13.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project14.jpg');">
+                <div class="content">
+                    <img src="logo/logo14.png" alt="Client Logo 14" class="logo">
+                    <h2>Client 14</h2>
+                    <p>Description du projet pour Client 14.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project15.jpg');">
+                <div class="content">
+                    <img src="logo/logo15.png" alt="Client Logo 15" class="logo">
+                    <h2>Client 15</h2>
+                    <p>Description du projet pour Client 15.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project16.jpg');">
+                <div class="content">
+                    <img src="logo/logo16.png" alt="Client Logo 16" class="logo">
+                    <h2>Client 16</h2>
+                    <p>Description du projet pour Client 16.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project17.jpg');">
+                <div class="content">
+                    <img src="logo/logo17.png" alt="Client Logo 17" class="logo">
+                    <h2>Client 17</h2>
+                    <p>Description du projet pour Client 17.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project18.jpg');">
+                <div class="content">
+                    <img src="logo/logo18.png" alt="Client Logo 18" class="logo">
+                    <h2>Client 18</h2>
+                    <p>Description du projet pour Client 18.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project19.jpg');">
+                <div class="content">
+                    <img src="logo/logo19.png" alt="Client Logo 19" class="logo">
+                    <h2>Client 19</h2>
+                    <p>Description du projet pour Client 19.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project20.jpg');">
+                <div class="content">
+                    <img src="logo/logo20.png" alt="Client Logo 20" class="logo">
+                    <h2>Client 20</h2>
+                    <p>Description du projet pour Client 20.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project21.jpg');">
+                <div class="content">
+                    <img src="logo/logo21.png" alt="Client Logo 21" class="logo">
+                    <h2>Client 21</h2>
+                    <p>Description du projet pour Client 21.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project22.jpg');">
+                <div class="content">
+                    <img src="logo/logo22.png" alt="Client Logo 22" class="logo">
+                    <h2>Client 22</h2>
+                    <p>Description du projet pour Client 22.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project23.jpg');">
+                <div class="content">
+                    <img src="logo/logo23.png" alt="Client Logo 23" class="logo">
+                    <h2>Client 23</h2>
+                    <p>Description du projet pour Client 23.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project24.jpg');">
+                <div class="content">
+                    <img src="logo/logo24.png" alt="Client Logo 24" class="logo">
+                    <h2>Client 24</h2>
+                    <p>Description du projet pour Client 24.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project25.jpg');">
+                <div class="content">
+                    <img src="logo/logo25.png" alt="Client Logo 25" class="logo">
+                    <h2>Client 25</h2>
+                    <p>Description du projet pour Client 25.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project26.jpg');">
+                <div class="content">
+                    <img src="logo/logo26.png" alt="Client Logo 26" class="logo">
+                    <h2>Client 26</h2>
+                    <p>Description du projet pour Client 26.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project27.jpg');">
+                <div class="content">
+                    <img src="logo/logo27.png" alt="Client Logo 27" class="logo">
+                    <h2>Client 27</h2>
+                    <p>Description du projet pour Client 27.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project28.jpg');">
+                <div class="content">
+                    <img src="logo/logo28.png" alt="Client Logo 28" class="logo">
+                    <h2>Client 28</h2>
+                    <p>Description du projet pour Client 28.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project29.jpg');">
+                <div class="content">
+                    <img src="logo/logo29.png" alt="Client Logo 29" class="logo">
+                    <h2>Client 29</h2>
+                    <p>Description du projet pour Client 29.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project30.jpg');">
+                <div class="content">
+                    <img src="logo/logo30.png" alt="Client Logo 30" class="logo">
+                    <h2>Client 30</h2>
+                    <p>Description du projet pour Client 30.</p>
+                </div>
+            </div>
+        </div>
+        <!-- button arrows -->
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+        <!-- thumbnail -->
+        <div class="thumbnail">
+            <div class="item active">
+                <img src="logo/tf.png" alt="Client Logo 1" class="logo-thumb">
+            </div>
+            <div class="item">
+                <img src="logo/Orange_logo.svg.png" alt="Client Logo 2" class="logo-thumb">
+            </div>
+            <div class="item">
+                <img src="logo/canal-1-logo-png-transparent.png" alt="Client Logo 3" class="logo-thumb">
+            </div>
+            <div class="item">
+                <img src="logo/oim-iom-logo-png_seeklogo-102524.png"

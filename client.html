@@ -3,177 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nos Client</title>
+    <title>Document</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: Poppins;
             margin: 0;
-            padding: 0;
-            background: #000; /* Dark background to enhance video visibility */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* Prevent scrollbars */
+            background-color: #010101;
+            color: #eee;
         }
-        /* Background Video */
-        #background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
+        svg{
+            width: 25px;
+        }
+        /* css slider */
+        .slider{
+            height: 100vh;
+            position: relative;
+        }
+        .slider .list .item{
+            position: absolute;
+            inset: 0 0 0 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: .5s;
+            background-size: cover;
+            background-position: center;
+        }
+        .slider .list .item::after{
+            content: '';
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: -1; /* Behind everything */
-        }
-        .slider-container {
-            width: 60%;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
-             /* Semi-transparent border for visibility */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            background: transparent; /* Transparent background */
-            backdrop-filter: blur(10px); /* Blurs the background video behind */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-             /* Optional for modern look */
-        }
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            min-width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(255, 255, 255, 0); /* Semi-transparent white for content readability */
-            position: relative;
-            overflow: hidden;
-        }
-        /* Animated Border Effect (inspired by video) */
-        .slide::before {
-            content: '';
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
             bottom: 0;
-            /* border: 3px solid transparent;
-            border-top-color: #000;
-            border-left-color: #000; */
-            animation: borderDraw 2s ease-in-out infinite alternate;
+
         }
-        .slide::after {
-            content: '';
+        .slider .list .item .content{
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* border: 3px solid transparent;
-            border-bottom-color: #000;
-            border-right-color: #000; */
-            animation: borderDraw 2s ease-in-out infinite alternate-reverse;
-        }
-        @keyframes borderDraw {
-            0% { border-color: transparent; }
-            50% { border-color: #000; }
-            100% { border-color: #333; }
-        }
-        .slide:hover::before, .slide:hover::after {
-            animation-duration: 1s;
-        }
-        .slide-content {
-            text-align: center;
-            max-width: 400px;
-            position: relative;
+            left: 10%;
+            top: 5%;
+            width: 500px;
+            max-width: 80%;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .slide img {
-            width: 150px;
-            height: 150px;
-            /* object-fit: cover; */
-            /* border: 2px solid #000; */
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
+        .slider .list .item .content .logo{
+            margin-left: 20px;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
         }
-        .slide img:hover {
-            transform: scale(1.1);
+        .slider .list .item .content h2{
+            margin-left: 20px;
+            font-size: 50px;
+            margin: 0 0 10px 20px;
+            text-transform: uppercase;
         }
-        .description {
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 15px;
+        .slider .list .item .content p{
+            margin-left: 20px;
+            font-size: 18px;
             line-height: 1.5;
             
         }
-        .link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #ffffff, #333);
-            color: #000000;
-            text-decoration: none;
-            /* border: 2px solid #000; */
-            transition: background 0.3s ease;
-        }
-        .link:hover {
-            background: linear-gradient(45deg, #333, #ffffff);
-        }
-        .nav-buttons {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 24px;
-        }
-        .prev { left: 10px; }
-        .next { right: 10px; }
-        .dots {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background: #ccc;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .dot.active { background: #000; }
-                .menu {
+        .slider .list .item.active{
             
+            opacity: 1;
+            z-index: 10;
+        }
+        @keyframes showContent {
+            to{
+                transform: translateY(0);
+                filter: blur(0);
+                opacity: 1;
+            }
+        }
+        .slider .list .item.active .logo,
+        .slider .list .item.active h2,
+        .slider .list .item.active p{
+            transform: translateY(30px);
+            filter: blur(20px);
+            opacity: 0;
+            animation: showContent .5s .7s ease-in-out 1 forwards;
+        }
+        .slider .list .item.active h2{
+            animation-delay: 1s;
+        }
+        .slider .list .item.active p{
+            animation-delay: 1.3s;
+        }
+        .arrows{
+            position: absolute;
+            top: 30%;
+            right: 50px;
+            z-index: 100;
+        }
+        .arrows button{
+            background-color: #eee5;
+            border: none;
+            font-family: monospace;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            font-size: x-large;
+            color: #eee;
+            transition: .5s;
+        }
+        .arrows button:hover{
+            background-color: #eee;
+            color: black;
+        }
+        @media screen and (max-width: 678px) {
+            .slider .list .item .content .logo{
+                width: 100px;
+                height: 100px;
+            }
+            .slider .list .item .content h2{
+                font-size: 30px;
+            }
+            .slider .list .item .content p{
+                font-size: 16px;
+            }
+            .arrows{
+                top: 10%;
+            }
+            .slider .list .item .content{
+                top: 5%;
+            }
+        }
+        .menu {
             position: absolute;
             top: 60px; /* Ajustez la position du menu */
-            left: 20px; /* Added left to position at top left */
-            z-index: 1;
+            left: 20px; /* Aligner avec le hamburger */
+            z-index: 1000; /* Augmenter z-index pour être sûr qu'il est au-dessus */
             display: none; /* Masquer le menu par défaut */
-            background-color: transparent; /* Fond semi-transparent */
-            padding: 0px;
+             
+            padding: 10px;
             border-radius: 5px;
         }
         .menu ul {
-            color: white;
+            color: rgb(131, 131, 131);
             list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
-        
         .menu li {
             margin: 10px 0;
-            color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             font-size: 18px;
         }
         .menu a {
-            color: rgb(51, 51, 51); /* Couleur blanche pour les liens */
+            color: rgb(86, 86, 86); /* Couleur blanche pour les liens */
             text-decoration: none; /* Supprimer le soulignement */
         }
         .menu a:hover {
@@ -183,9 +165,9 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            z-index: 1;
+            z-index: 1001; /* Au-dessus du menu */
             cursor: pointer;
-            color: rgb(55, 55, 55);
+            color: rgb(130, 130, 130);
             font-size: 24px;
             background: transparent;
             border: none;
@@ -193,156 +175,290 @@
     </style>
 </head>
 <body>
-    <!-- Background Video -->
-    <video id="background-video" autoplay muted loop>
-        <source src="https://res.cloudinary.com/dombaudh7/video/upload/v1761397873/BVP_SITE_HOME_PAGE_1_1_1_oqkgcd.mp4" type="video/mp4">
-        <!-- Replace with your own video URL. This is a placeholder. -->
-        Your browser does not support the video tag.
-    </video>
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <!-- Bouton hamburger pour ouvrir/fermer le menu -->
+    <button class="hamburger" id="hamburger-btn">☰</button>
+
     <nav class="menu" id="menu">
         <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <!-- <li><a href="client.html">Nos clients</a></li> -->
-                <a href="devis.html">Demander <br>un Devis</a>
-                <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="client.html">Nos clients</a></li>
+            <li><a href="devis.html">Demander <br> un Devis</a></li>
+            <!-- <li><a href="contact.html">Contact</a></li> -->
         </ul>
     </nav>
-        <script>
-            function toggleMenu() {
+
+    <script>
+        // Utiliser addEventListener pour plus de fiabilité
+        document.getElementById('hamburger-btn').addEventListener('click', function() {
             const menu = document.getElementById('menu');
+            console.log('Hamburger clicked'); // Pour déboguer : ouvrez la console du navigateur (F12) et vérifiez si ce message apparaît
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        }
+        });
     </script>
-    <div class="slider-container">
-        <div class="slider" id="slider">
-            <!-- Slide 1 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\Orange_logo.svg.png" alt="Tech Innovators">
-                    <div class="description"><h2>Orange</h2></div>
-                    <a href="https://www.orange.com/en?utm_source=chatgpt.com" class="link">Visit Orange</a>
+
+    <div class="slider">
+        <div class="list">
+            <div class="item active" style="background-image: url('bvp/cinema.avif');">
+                <div class="content">
+                    <img src="logo/tf.png" alt="Client Logo 1" class="logo">
+                    <h2>TF1</h2>
+                    <p>Description du projet pour Client 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 2 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\pngwing.com.png" alt="Creative Studios" width="" height=" ">
-                    <div class="description"><h2>Paris Saint‑Germain</h2></div>
-                    <a href="https://www.psg.fr/en?utm_source=chatgpt.com" class="link">Visit Paris Saint‑Germain</a>
+            <div class="item" style="background-image: url('image/project2.jpg');">
+                <div class="content">
+                    <img src="logo/Orange_logo.svg.png" alt="Client Logo 2" class="logo">
+                    <h2>ORANGE</h2>
+                    <p>Description du projet pour Client 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 3 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\canal-1-logo-png-transparent.png" alt="Eco Ventures" width="100" height="100">
-                    <div class="description"><h2>Canal+</h2></div>
-                    <a href="https://www.canalplus.com/?utm_source=chatgpt.com" class="link">Visit Canal+</a>
+            <div class="item" style="background-image: url('image/project3.jpg');">
+                <div class="content">
+                    <img src="logo/canal-1-logo-png-transparent.png" alt="Client Logo 3" class="logo">
+                    <h2>CANAL+</h2>
+                    <p>Description du projet pour Client 3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 4 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\tf.png" alt="Artisan Collective" width="100" height="100">
-                    <div class="description"><h2>TF1</h2></div>
-                    <a href="https://www.tf1.fr?utm_source=chatgpt.com" class="link">Visit TF1</a>
+            <div class="item" style="background-image: url('image/project4.jpg');">
+                <div class="content">
+                    <img src="logo/pngwing.com.png" alt="Client Logo 4" class="logo">
+                    <h2>Paris Saint‑Germain</h2>
+                    <p>Description du projet pour Client 4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 5 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\oim-iom-logo-png_seeklogo-102524.png" alt="Sonic Waves">
-                    <div class="description"><h2>International Organization for Migration (IOM)</h2></div>
-                    <a href="https://www.iom.int/?utm_source=chatgpt.com" class="link">Visit IOM </a>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logo/oim-iom-logo-png_seeklogo-102524.png" alt="Client Logo 5" class="logo">
+                    <h2>OIM</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 6 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\attijariwafa-bank-logo-png_seeklogo-176188.png" alt="Cosmic Explorers">
-                    <div class="description"><h2>Attijariwafa Bank</h2></div>
-                    <a href="https://www.attijariwafabank.com/fr?utm_source=chatgpt.com" class="link">Visit Attijariwafa Bank</a>
+                        <div class="item" style="background-image: url('image/project4.jpg');">
+                <div class="content">
+                    <img src="logo/attijariwafa-bank-logo-png_seeklogo-176188.png" alt="Client Logo 4" class="logo">
+                    <h2>Attijariwafabank</h2>
+                    <p>Description du projet pour Client 4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 7 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\neutrogena-1-logo-png-transparent.png" alt="Culinary Labs">
-                    <div class="description"><h2>Neutrogena</h2></div>
-                    <a href="https://www.neutrogena.com/?utm_source=chatgpt.com" class="link">Visit Neutrogena</a>
+             <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logo/neutrogena-1-logo-png-transparent.png" alt="Client Logo 5" class="logo">
+                    <h2>NEUTROGENA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 8 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\téléchargement.png" alt="Style Architects">
-                    <div class="description"><h2>Glovo</h2></div>
-                    <a href="https://glovoapp.com/?utm_source=chatgpt.com" class="link">Visit Glovo</a>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logo/téléchargement.png" alt="Client Logo 5" class="logo">
+                    <h2>Glovo</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 9 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\2m.jpg" alt="Wellness Forge" width="100" height="100">
-                    <div class="description"><h2>2M</h2></div>
-                    <a href="https://www.2m.ma/" class="link">Visit 2M</a>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logo/medi.png" alt="Client Logo 5" class="logo">
+                    <h2>MEDI1 TV</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
-            <!-- Slide 10 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\medi.png" alt="Knowledge Grid">
-                    <div class="description"><h2>Medi1</h2></div>
-                    <a href="https://www.medi1tv.com/?utm_source=chatgpt.com" class="link">Visit Medi1</a>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/jazza.png" alt="Client Logo 5" class="logo">
+                    <h2>JAZZABLANCA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
                 </div>
             </div>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/sevenpm.jpg" alt="Client Logo 5" class="logo">
+                    <h2>SEVENPM</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/mosaik.avif" alt="Client Logo 5" class="logo">
+                    <h2>MOSAIK</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/anfaocean.png" alt="Client Logo 5" class="logo">
+                    <h2>ANFA OCEAN</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/onu.png" alt="Client Logo 5" class="logo">
+                    <h2>ONU FEMMES</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/prmedia.jpg" alt="Client Logo 5" class="logo">
+                    <h2>PRMEDIA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/giz.png" alt="Client Logo 5" class="logo">
+                    <h2>GIZ</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/cooper.jpg" alt="Client Logo 5" class="logo">
+                    <h2>COOPER PHARMA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/onmt.png" alt="Client Logo 5" class="logo">
+                    <h2>ONMT</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/sapst.png" alt="Client Logo 5" class="logo">
+                    <h2>SAPST</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/aefe.PNG" alt="Client Logo 5" class="logo">
+                    <h2>AEFE</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/ain.PNG" alt="Client Logo 5" class="logo">
+                    <h2>AIN JOHRA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/Fondation_mohammed_v_pour_la_solidarite_logo.png" alt="Client Logo 5" class="logo">
+                    <h2>FONDATION MOHAMMED V</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/alif.PNG" alt="Client Logo 5" class="logo">
+                    <h2>ALIF FESTIVAL</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/uradio.PNG" alt="Client Logo 5" class="logo">
+                    <h2>URADIO</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+                        <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/mt.PNG" alt="Client Logo 5" class="logo">
+                    <h2>MAROC TELECOM</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/timeless.PNG" alt="Client Logo 5" class="logo">
+                    <h2>TIMELESS FESTIVAL</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/minstere.PNG" alt="Client Logo 5" class="logo">
+                    <h2>ministre de la jeuness et de la communication</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/tendancia.PNG" alt="Client Logo 5" class="logo">
+                    <h2>TENDENCIA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/comediablanca.PNG" alt="Client Logo 5" class="logo">
+                    <h2>COMEDIABLANCA</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <div class="item" style="background-image: url('image/project5.jpg');">
+                <div class="content">
+                    <img src="logoClient/taghazout.PNG" alt="Client Logo 5" class="logo">
+                    <h2>TAGHAZOUT BAY</h2>
+                    <p>Description du projet pour Client 5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ex.</p>
+                </div>
+            </div>
+            <!-- Copy-paste the above <div class="item"> block for clients 6-30, updating URLs, names, and descriptions. Example for Client 6:
+            <div class="item" style="background-image: url('image/project6.jpg');">
+                <div class="content">
+                    <img src="image/logo6.png" alt="Client Logo 6" class="logo">
+                    <h2>Client 6</h2>
+                    <p>Description du projet pour Client 6.</p>
+                </div>
+            </div>
+            Repeat up to Client 30. -->
         </div>
-        <button class="nav-buttons prev" onclick="prevSlide()">&#10094;</button>
-        <button class="nav-buttons next" onclick="nextSlide()">&#10095;</button>
-        <div class="dots" id="dots"></div>
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
     </div>
 
     <script>
-        const slider = document.getElementById('slider');
-        const slides = slider.children;
-        const dotsContainer = document.getElementById('dots');
-        let currentIndex = 0;
+        let items = document.querySelectorAll('.slider .list .item');
+        let next = document.getElementById('next');
+        let prev = document.getElementById('prev');
 
-        // Create dots
-        for (let i = 0; i < slides.length; i++) {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        }
-        const dots = dotsContainer.children;
-        dots[0].classList.add('active');
-
-        function updateDots() {
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.remove('active');
+        let countItem = items.length;
+        let itemActive = 0;
+        next.onclick = function(){
+            itemActive = itemActive + 1;
+            if(itemActive >= countItem){
+                itemActive = 0;
             }
-            dots[currentIndex].classList.add('active');
+            showSlider();
         }
-
-        function goToSlide(index) {
-            currentIndex = index;
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            updateDots();
+        prev.onclick = function(){
+            itemActive = itemActive - 1;
+            if(itemActive < 0){
+                itemActive = countItem - 1;
+            }
+            showSlider();
         }
+        let refreshInterval = setInterval(() => {
+            next.click();
+        }, 5000)
+        function showSlider(){
+            let itemActiveOld = document.querySelector('.slider .list .item.active');
+            itemActiveOld.classList.remove('active');
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            goToSlide(currentIndex);
+            items[itemActive].classList.add('active');
+
+            clearInterval(refreshInterval);
+            refreshInterval = setInterval(() => {
+                next.click();
+            }, 5000)
         }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            goToSlide(currentIndex);
-        }
-
-        // Auto-slide every 5 seconds
-        setInterval(nextSlide, 5000);
     </script>
 </body>
 </html>
