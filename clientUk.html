@@ -3,189 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Client</title>
+    <title>Document</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        body{
+            font-family: Poppins;
             margin: 0;
-            padding: 0;
-            background: #000; /* Dark background to enhance video visibility */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* Prevent scrollbars */
+            background-color: #010101;
+            color: #ffffff;
         }
-        /* Background Video */
-        #background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
+        svg{
+            width: 25px;
+        }
+        /* css slider */
+        .slider{
+            height: 100vh;
+            position: relative;
+        }
+        .slider .list .item{
+            position: absolute;
+            inset: 0 0 0 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: .5s;
+            background-size: cover;
+            background-position: center;
+        }
+        .slider .list .item::after{
+            content: '';
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: -1; /* Behind everything */
-        }
-        .slider-container {
-            width: 60%;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
-             /* Semi-transparent border for visibility */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            background: transparent; /* Transparent background */
-            backdrop-filter: blur(10px); /* Blurs the background video behind */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-             /* Optional for modern look */
-        }
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            min-width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(255, 255, 255, 0); /* Semi-transparent white for content readability */
-            position: relative;
-            overflow: hidden;
-        }
-        /* Animated Border Effect (inspired by video) */
-        .slide::before {
-            content: '';
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
             bottom: 0;
-            /* border: 3px solid transparent;
-            border-top-color: #000;
-            border-left-color: #000; */
-            animation: borderDraw 2s ease-in-out infinite alternate;
+            background-color: rgba(0, 0, 0, 0.3);
         }
-        .slide::after {
-            content: '';
+        .slider .list .item .content{
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* border: 3px solid transparent;
-            border-bottom-color: #000;
-            border-right-color: #000; */
-            animation: borderDraw 2s ease-in-out infinite alternate-reverse;
-        }
-        @keyframes borderDraw {
-            0% { border-color: transparent; }
-            50% { border-color: #000; }
-            100% { border-color: #333; }
-        }
-        .slide:hover::before, .slide:hover::after {
-            animation-duration: 1s;
-        }
-        .slide-content {
-            text-align: center;
-            max-width: 400px;
-            position: relative;
+            left: 10%;
+            top: 5%;
+            width: 500px;
+            max-width: 80%;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .slide img {
-            width: 150px;
-            height: 150px;
-            /* object-fit: cover; */
-            /* border: 2px solid #000; */
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
+        .slider .list .item .content .logo{
+            margin-left: 20px;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
         }
-        .slide img:hover {
-            transform: scale(1.1);
+        .slider .list .item .content h2{
+            margin-left: 20px;
+            font-size: 50px;
+            margin: 0 0 10px 20px;
+            text-transform: uppercase;
         }
-        .description {
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 15px;
+        .slider .list .item .content p{
+            margin-left: 20px;
+            font-size: 18px;
             line-height: 1.5;
             
         }
-        .link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #ffffff, #333);
-            color: #000000;
-            text-decoration: none;
-            /* border: 2px solid #000; */
-            transition: background 0.3s ease;
-        }
-        .link:hover {
-            background: linear-gradient(45deg, #333, #ffffff);
-        }
-        .nav-buttons {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 24px;
-        }
-        .prev { left: 10px; }
-        .next { right: 10px; }
-        .dots {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background: #ccc;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .dot.active { background: #000; }
-                .menu {
+        .slider .list .item.active{
             
+            opacity: 1;
+            z-index: 10;
+        }
+        @keyframes showContent {
+            to{
+                transform: translateY(0);
+                filter: blur(0);
+                opacity: 1;
+            }
+        }
+        .slider .list .item.active .logo,
+        .slider .list .item.active h2,
+        .slider .list .item.active p{
+            transform: translateY(30px);
+            filter: blur(20px);
+            opacity: 0;
+            animation: showContent .5s .7s ease-in-out 1 forwards;
+        }
+        .slider .list .item.active h2{
+            animation-delay: 1s;
+        }
+        .slider .list .item.active p{
+            animation-delay: 1.3s;
+        }
+        .arrows{
             position: absolute;
-            top: 60px; /* Adjust menu position */
-            left: 20px; /* Added left to position at top left */
-            z-index: 1;
-            display: none; /* Hide menu by default */
-            background-color: transparent; /* Semi-transparent background */
-            padding: 0px;
+            top: 30%;
+            right: 50px;
+            z-index: 100;
+        }
+        .arrows button{
+            background-color: #eee5;
+            border: none;
+            font-family: monospace;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            font-size: x-large;
+            color: #eee;
+            transition: .5s;
+        }
+        .arrows button:hover{
+            background-color: #eee;
+            color: black;
+        }
+        @media screen and (max-width: 678px) {
+            .slider .list .item .content .logo{
+                width: 100px;
+                height: 100px;
+            }
+            .slider .list .item .content h2{
+                font-size: 30px;
+            }
+            .slider .list .item .content p{
+                font-size: 16px;
+            }
+            .arrows{
+                top: 10%;
+            }
+            .slider .list .item .content{
+                top: 5%;
+            }
+        }
+        .menu {
+            position: absolute;
+            top: 60px; /* Ajustez la position du menu */
+            left: 20px; /* Aligner avec le hamburger */
+            z-index: 1000; /* Augmenter z-index pour être sûr qu'il est au-dessus */
+            display: none; /* Masquer le menu par défaut */
+             
+            padding: 10px;
             border-radius: 5px;
         }
         .menu ul {
-            color: white;
+            color: rgb(101, 100, 100);
             list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
-        
         .menu li {
             margin: 10px 0;
-            color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             font-size: 18px;
         }
         .menu a {
-            color: rgb(51, 51, 51); /* White color for links */
-            text-decoration: none; /* Remove underline */
+            color: rgb(169, 169, 169); /* Couleur blanche pour les liens */
+            text-decoration: none; /* Supprimer le soulignement */
         }
         .menu a:hover {
-            text-decoration: underline; /* Underline on hover for interactivity */
+            text-decoration: underline; /* Soulignement au survol pour l'interactivité */
         }
         .hamburger {
             position: absolute;
             top: 20px;
             left: 20px;
-            z-index: 1;
+            z-index: 1001; /* Au-dessus du menu */
             cursor: pointer;
-            color: rgb(55, 55, 55);
+            color: rgb(130, 130, 130);
             font-size: 24px;
             background: transparent;
             border: none;
@@ -193,156 +175,370 @@
     </style>
 </head>
 <body>
-    <!-- Background Video -->
-    <video id="background-video" autoplay muted loop>
-        <source src="https://res.cloudinary.com/dombaudh7/video/upload/v1761397873/BVP_SITE_HOME_PAGE_1_1_1_oqkgcd.mp4" type="video/mp4">
-        <!-- Replace with your own video URL. This is a placeholder. -->
-        Your browser does not support the video tag.
-    </video>
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <!-- Bouton hamburger pour ouvrir/fermer le menu -->
+    <button class="hamburger" id="hamburger-btn">☰</button>
+
     <nav class="menu" id="menu">
         <ul>
-                <li><a href="morocco.html">Home</a></li>
-                <!-- <li><a href="client.html">Our Clients</a></li> -->
-                <li><a href="devisUk.html">Get a Quote</a></li>
-                <li><a href="contactUk.html">Contact</a></li>
+            <li><a href="morocco.html">Home</a></li>
+            <!-- <li><a href="client.html">Nos clients</a></li> -->
+            <li><a href="devisUk.html">Get a Quote</a></li>
+            <li><a href="contactUk.html">Contact</a></li>
         </ul>
     </nav>
-        <script>
-            function toggleMenu() {
+
+    <script>
+        // Utiliser addEventListener pour plus de fiabilité
+        document.getElementById('hamburger-btn').addEventListener('click', function() {
             const menu = document.getElementById('menu');
+            console.log('Hamburger clicked'); // Pour déboguer : ouvrez la console du navigateur (F12) et vérifiez si ce message apparaît
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        }
+        });
     </script>
-    <div class="slider-container">
-        <div class="slider" id="slider">
-            <!-- Slide 1 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\Orange_logo.svg.png" alt="Tech Innovators">
-                    <div class="description"><h2>Orange</h2></div>
-                    <a href="https://www.orange.com/en?utm_source=chatgpt.com" class="link">Visit Orange</a>
+
+    <div class="slider">
+        <div class="list">
+           <div class="item active" style="background-image: url('background/TF1.jpg');">
+    <div class="content">
+        <img src="logo/tf.png" alt="Client Logo 1" class="logo">
+        <h2>TF1</h2>
+        <p>Leading French TV channel offering a wide range of news, entertainment, and fiction for a broad audience.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/orange.jpeg');">
+    <div class="content">
+        <img src="logo/Orange_logo.svg.png" alt="Client Logo 2" class="logo">
+        <h2>ORANGE</h2>
+        <p>French telecommunications group providing mobile, internet, and TV services in over 25 countries.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/canal.webp');">
+    <div class="content">
+        <img src="logo/canal-1-logo-png-transparent.png" alt="Client Logo 3" class="logo">
+        <h2>CANAL+</h2>
+        <p>French media group known for its TV channels, movies, series, and exclusive entertainment content.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/psg1.jpg');">
+    <div class="content">
+        <img src="logo/pngwing.com.png" alt="Client Logo 4" class="logo">
+        <h2>Paris Saint-Germain</h2>
+        <p>Iconic football club from the French capital, competing in Ligue 1 and shining on the international stage.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/oim.png');">
+    <div class="content">
+        <img src="logo/oim-iom-logo-png_seeklogo-102524.png" alt="Client Logo 5" class="logo">
+        <h2>OIM</h2>
+        <p>The International Organization for Migration (IOM) works to ensure humane and orderly migration worldwide.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/Attijariwafa-Bank.jpg');">
+    <div class="content">
+        <img src="logo/attijariwafa-bank-logo-png_seeklogo-176188.png" alt="Client Logo 4" class="logo">
+        <h2>Attijariwafa bank</h2>
+        <p>Morocco’s leading bank, providing innovative financial services for individuals and businesses across Africa.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/neutrogena2.png');">
+    <div class="content">
+        <img src="logo/neutrogena-1-logo-png-transparent.png" alt="Client Logo 5" class="logo">
+        <h2>NEUTROGENA</h2>
+        <p>American skincare brand offering dermatologist-tested products known for their effectiveness and gentleness.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/glovo.webp');">
+    <div class="content">
+        <img src="logo/téléchargement.png" alt="Client Logo 5" class="logo">
+        <h2>Glovo</h2>
+        <p>On-demand delivery platform allowing users to order food and products quickly and conveniently.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/Medi1tv.png');">
+    <div class="content">
+        <img src="logo/medi.png" alt="Client Logo 5" class="logo">
+        <h2>MEDI1 TV</h2>
+        <p>Moroccan French-speaking news channel broadcasting international news, debates, and cultural programs.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/jazza.png');">
+    <div class="content">
+        <img src="logoClient/jazza.png" alt="Client Logo 5" class="logo">
+        <h2>JAZZABLANCA</h2>
+        <p>Casablanca’s iconic music festival highlighting both Moroccan and international jazz talent.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/sevenpm.png');">
+    <div class="content">
+        <img src="logoClient/sevenpm.jpg" alt="Client Logo 5" class="logo">
+        <h2>SEVENPM</h2>
+        <p>Moroccan communication agency specializing in audiovisual production, events, and digital marketing.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/mosaik.jpg');">
+    <div class="content">
+        <img src="logoClient/mosaik.avif" alt="Client Logo 5" class="logo">
+        <h2>MOSAIK</h2>
+        <p>Creative communication agency offering global branding, design, and advertising solutions in Morocco.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/anfa ocean.jpg');">
+    <div class="content">
+        <img src="logoClient/anfaocean.png" alt="Client Logo 5" class="logo">
+        <h2>ANFA OCEAN</h2>
+        <p>Luxury real estate project in Casablanca offering modern spaces combining ocean views, nature, and comfort.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/onufemmes.JPG');">
+    <div class="content">
+        <img src="logoClient/onu.png" alt="Client Logo 5" class="logo">
+        <h2>ONU FEMMES</h2>
+        <p>UN Women promotes gender equality and women’s empowerment through global and local initiatives.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/giz.png');">
+    <div class="content">
+        <img src="logoClient/giz.png" alt="Client Logo 5" class="logo">
+        <h2>GIZ</h2>
+        <p>German development agency supporting sustainable development and vocational training worldwide.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/cooper.jpg');">
+    <div class="content">
+        <img src="logoClient/cooper.jpg" alt="Client Logo 5" class="logo">
+        <h2>COOPER PHARMA</h2>
+        <p>Moroccan pharmaceutical company manufacturing and distributing medicines across Africa and beyond.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/ONMT-1.jpg');">
+    <div class="content">
+        <img src="logoClient/onmt.png" alt="Client Logo 5" class="logo">
+        <h2>ONMT</h2>
+        <p>Moroccan National Tourist Office promoting Morocco as a leading international travel destination.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/aefe.jpg');">
+    <div class="content">
+        <img src="logoClient/aefe.PNG" alt="Client Logo 5" class="logo">
+        <h2>AEFE</h2>
+        <p>Agency for French Education Abroad managing a global network of French-speaking schools worldwide.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/mt.jpeg');">
+    <div class="content">
+        <img src="logoClient/mt.PNG" alt="Client Logo 5" class="logo">
+        <h2>MAROC TELECOM</h2>
+        <p>Morocco’s telecom leader offering internet, mobile, and landline services across multiple African countries.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/time.png');">
+    <div class="content">
+        <img src="logoClient/timeless.PNG" alt="Client Logo 5" class="logo">
+        <h2>TIMELESS FESTIVAL</h2>
+        <p>Electronic music festival in Morocco bringing together international artists in a unique, immersive atmosphere.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/Tramway.jpg');">
+    <div class="content">
+        <img src="logoClient/tram.png" alt="Client Logo 5" class="logo">
+        <h2>TRAM CASABLANCA</h2>
+        <p>Modern transport network improving urban mobility and reducing Casablanca’s environmental impact.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/minster.jpg');">
+    <div class="content">
+        <img src="logoClient/minstere.PNG" alt="Client Logo 5" class="logo">
+        <h2>Ministry of Youth and Communication</h2>
+        <p>Moroccan public institution promoting youth engagement, culture, and responsible communication.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/tendansia.jpeg');">
+    <div class="content">
+        <img src="logoClient/tendancia.PNG" alt="Client Logo 5" class="logo">
+        <h2>TENDANSIA</h2>
+        <p>Moroccan live-entertainment production agency, delivering shows and events that move beyond passion and explore emotion..</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/casalatina.png');">
+    <div class="content">
+        <img src="logoClient/casalatina.jpg" alt="Client Logo 5" class="logo">
+        <h2>CASALATINA</h2>
+        <p>Latin music and dance festival in Casablanca celebrating Latin American culture through concerts and shows.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/comediablanca.png');">
+    <div class="content">
+        <img src="logoClient/comediablanca.PNG" alt="Client Logo 5" class="logo">
+        <h2>COMEDIABLANCA</h2>
+        <p>International comedy festival in Casablanca featuring top Moroccan and international comedians.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/taghazoutbay.jpg');">
+    <div class="content">
+        <img src="logoClient/taghazout.PNG" alt="Client Logo 5" class="logo">
+        <h2>TAGHAZOUT BAY</h2>
+        <p>Eco-friendly seaside resort near Agadir combining sustainable tourism, surfing, and natural landscapes.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/munchy 2.png');">
+    <div class="content">
+        <img src="logoClient/munchy.PNG" alt="Client Logo 5" class="logo">
+        <h2>MUNCHY</h2>
+        <p>Innovative Moroccan snack brand offering delicious, accessible products for all ages.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/tanjazz.JPG');">
+    <div class="content">
+        <img src="logoClient/tanjazz.jpeg" alt="Client Logo 5" class="logo">
+        <h2>TANJAZZ</h2>
+        <p>Tangier’s international jazz festival uniting Moroccan and global musicians in a vibrant celebration of music.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/uclg.jpg');">
+    <div class="content">
+        <img src="logoClient/uclgafriqua.png" alt="Client Logo 5" class="logo">
+        <h2>UCLG AFRICA</h2>
+        <p>Pan-African organization of local governments promoting good governance and sustainable development.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/Menasteel 8 (1).png');">
+    <div class="content">
+        <img src="logoClient/menasteel.jpg" alt="Client Logo 5" class="logo">
+        <h2>MENASTEEL</h2>
+        <p>Moroccan company specializing in the production and distribution of high-quality steel and metal products.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/fm6.jpg');">
+    <div class="content">
+        <img src="logoClient/Fondation_mohammed_v_pour_la_solidarite_logo.png" alt="Client Logo 5" class="logo">
+        <h2>FONDATION MOHAMMED V</h2>
+        <p>Moroccan foundation promoting solidarity, humanitarian aid, and social development across the kingdom.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/alif.png');">
+    <div class="content">
+        <img src="logoClient/alif.PNG" alt="Client Logo 5" class="logo">
+        <h2>ALIF FESTIVAL</h2>
+        <p>Cultural festival celebrating Arabic arts and literature, highlighting the diversity of the Arab world.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/uradio.jpg');">
+    <div class="content">
+        <img src="logoClient/uradio.PNG" alt="Client Logo 5" class="logo">
+        <h2>URADIO</h2>
+        <p>Young and dynamic Moroccan radio station offering a mix of music, culture, and entertainment.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/salon.avif');">
+    <div class="content">
+        <img src="logoClient/salon.PNG" alt="Client Logo 5" class="logo">
+        <h2>SALON DU LIVRE</h2>
+        <p>Annual cultural event bringing together authors, publishers, and readers to celebrate books and creativity.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/uclg.jpg');">
+    <div class="content">
+        <img src="logoClient/uclgafriqua.png" alt="Client Logo 5" class="logo">
+        <h2>UCLG AFRICA</h2>
+        <p>Network of African local governments working to strengthen decentralized cooperation and inclusive growth.</p>
+    </div>
+</div>
+
+<div class="item" style="background-image: url('background/sapst.png');">
+    <div class="content">
+        <img src="logoClient/sapst.png" alt="Client Logo 5" class="logo">
+        <h2>SAPST</h2>
+        <p>Moroccan company managing and developing major tourism and hospitality projects, including Taghazout Bay.</p>
+    </div>
+</div>
+
+
+            <!-- Copy-paste the above <div class="item"> block for clients 6-30, updating URLs, names, and descriptions. Example for Client 6:
+            <div class="item" style="background-image: url('image/project6.jpg');">
+                <div class="content">
+                    <img src="image/logo6.png" alt="Client Logo 6" class="logo">
+                    <h2>Client 6</h2>
+                    <p>Description du projet pour Client 6.</p>
                 </div>
             </div>
-            <!-- Slide 2 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\pngwing.com.png" alt="Creative Studios" width="" height=" ">
-                    <div class="description"><h2>Paris Saint‑Germain</h2></div>
-                    <a href="https://www.psg.fr/en?utm_source=chatgpt.com" class="link">Visit Paris Saint‑Germain</a>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\canal-1-logo-png-transparent.png" alt="Eco Ventures" width="100" height="100">
-                    <div class="description"><h2>Canal+</h2></div>
-                    <a href="https://www.canalplus.com/?utm_source=chatgpt.com" class="link">Visit Canal+</a>
-                </div>
-            </div>
-            <!-- Slide 4 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\tf.png" alt="Artisan Collective" width="100" height="100">
-                    <div class="description"><h2>TF1</h2></div>
-                    <a href="https://www.tf1.fr?utm_source=chatgpt.com" class="link">Visit TF1</a>
-                </div>
-            </div>
-            <!-- Slide 5 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\oim-iom-logo-png_seeklogo-102524.png" alt="Sonic Waves">
-                    <div class="description"><h2>International Organization for Migration (IOM)</h2></div>
-                    <a href="https://www.iom.int/?utm_source=chatgpt.com" class="link">Visit IOM </a>
-                </div>
-            </div>
-            <!-- Slide 6 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\attijariwafa-bank-logo-png_seeklogo-176188.png" alt="Cosmic Explorers">
-                    <div class="description"><h2>Attijariwafa Bank</h2></div>
-                    <a href="https://www.attijariwafabank.com/fr?utm_source=chatgpt.com" class="link">Visit Attijariwafa Bank</a>
-                </div>
-            </div>
-            <!-- Slide 7 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\neutrogena-1-logo-png-transparent.png" alt="Culinary Labs">
-                    <div class="description"><h2>Neutrogena</h2></div>
-                    <a href="https://www.neutrogena.com/?utm_source=chatgpt.com" class="link">Visit Neutrogena</a>
-                </div>
-            </div>
-            <!-- Slide 8 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\téléchargement.png" alt="Style Architects">
-                    <div class="description"><h2>Glovo</h2></div>
-                    <a href="https://glovoapp.com/?utm_source=chatgpt.com" class="link">Visit Glovo</a>
-                </div>
-            </div>
-            <!-- Slide 9 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\2m.jpg" alt="Wellness Forge" width="100" height="100">
-                    <div class="description"><h2>2M</h2></div>
-                    <a href="https://www.2m.ma/" class="link">Visit 2M</a>
-                </div>
-            </div>
-            <!-- Slide 10 -->
-            <div class="slide">
-                <div class="slide-content">
-                    <img src="logo\medi.png" alt="Knowledge Grid">
-                    <div class="description"><h2>Medi1</h2></div>
-                    <a href="https://www.medi1tv.com/?utm_source=chatgpt.com" class="link">Visit Medi1</a>
-                </div>
-            </div>
+            Repeat up to Client 30. -->
         </div>
-        <button class="nav-buttons prev" onclick="prevSlide()">&#10094;</button>
-        <button class="nav-buttons next" onclick="nextSlide()">&#10095;</button>
-        <div class="dots" id="dots"></div>
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
     </div>
 
     <script>
-        const slider = document.getElementById('slider');
-        const slides = slider.children;
-        const dotsContainer = document.getElementById('dots');
-        let currentIndex = 0;
+        let items = document.querySelectorAll('.slider .list .item');
+        let next = document.getElementById('next');
+        let prev = document.getElementById('prev');
 
-        // Create dots
-        for (let i = 0; i < slides.length; i++) {
-            const dot = document.createElement('span');
-            dot.classList.add('dot');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        }
-        const dots = dotsContainer.children;
-        dots[0].classList.add('active');
-
-        function updateDots() {
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.remove('active');
+        let countItem = items.length;
+        let itemActive = 0;
+        next.onclick = function(){
+            itemActive = itemActive + 1;
+            if(itemActive >= countItem){
+                itemActive = 0;
             }
-            dots[currentIndex].classList.add('active');
+            showSlider();
         }
-
-        function goToSlide(index) {
-            currentIndex = index;
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            updateDots();
+        prev.onclick = function(){
+            itemActive = itemActive - 1;
+            if(itemActive < 0){
+                itemActive = countItem - 1;
+            }
+            showSlider();
         }
+        let refreshInterval = setInterval(() => {
+            next.click();
+        }, 5000)
+        function showSlider(){
+            let itemActiveOld = document.querySelector('.slider .list .item.active');
+            itemActiveOld.classList.remove('active');
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            goToSlide(currentIndex);
+            items[itemActive].classList.add('active');
+
+            clearInterval(refreshInterval);
+            refreshInterval = setInterval(() => {
+                next.click();
+            }, 5000)
         }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            goToSlide(currentIndex);
-        }
-
-        // Auto-slide every 5 seconds
-        setInterval(nextSlide, 5000);
     </script>
 </body>
 </html>
+
